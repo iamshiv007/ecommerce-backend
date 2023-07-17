@@ -16,12 +16,12 @@ app.use(cors({
 }))
 app.use(fileUpload())
 
-// // Handling Uncaught Exception
-// process.on("uncaughtException", (err) => {
-//     console.log(`Error: ${err.message}`)
-//     console.log('Shutting down the server due to Uncaught Exception')
-//     process.exit(1)
-// })
+// Handling Uncaught Exception
+process.on("uncaughtException", (err) => {
+    console.log(`Error: ${err.message}`)
+    console.log('Shutting down the server due to Uncaught Exception')
+    process.exit(1)
+})
 
 // Configuration 
 cloudinary.config({
@@ -33,11 +33,11 @@ cloudinary.config({
 
 /** Routes import */
 const router = require('./routes/router')
-app.use('/api/v1', router)
+app.use('/api/', router)
 
-// // Middleware for error handling
-// const errroMiddleware = require('./middleware/error')
-// app.use(errroMiddleware)
+// Middleware for error handling
+const errroMiddleware = require('./middleware/error')
+app.use(errroMiddleware)
 
 const port = process.env.PORT || 7000
 
@@ -50,15 +50,15 @@ const connect = require('./db')
 connect()
 
 
-// // Unhandled Promise Rejection
-// process.on("unhandledRejection", (err) => {
-//     console.log(`Error: ${err.message}`)
-//     console.log('Shutting down the server due to Unhandled Promise Rejection')
+// Unhandled Promise Rejection
+process.on("unhandledRejection", (err) => {
+    console.log(`Error: ${err.message}`)
+    console.log('Shutting down the server due to Unhandled Promise Rejection')
 
-//     server.close(() => {
-//         process.exit(1)
-//     })
-// })
+    server.close(() => {
+        process.exit(1)
+    })
+})
 
 // text server
 app.get('/', (req, res) => {
