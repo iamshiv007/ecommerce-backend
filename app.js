@@ -23,10 +23,6 @@ process.on("uncaughtException", (err) => {
     process.exit(1)
 })
 
-/** Database connection */
-const connect = require('./db')
-connect()
-
 // Configuration 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -48,6 +44,11 @@ const port = process.env.PORT || 7000
 const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`)
 })
+
+/** Database connection */
+const connect = require('./db')
+connect()
+
 
 // Unhandled Promise Rejection
 process.on("unhandledRejection", (err) => {
