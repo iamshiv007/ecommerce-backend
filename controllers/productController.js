@@ -215,7 +215,7 @@ exports.getProductReviews = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("Product not Found", 404))
     }
 
-    res.status(404).json({
+    res.status(200).json({
         success: true,
         reviews: product.reviews
     })
